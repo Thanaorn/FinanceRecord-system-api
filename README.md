@@ -1,4 +1,4 @@
-enviroment variable 
+#enviroment variable you should have
 MONGODB_URI
 DB_NAME
 USER_COLLECTION
