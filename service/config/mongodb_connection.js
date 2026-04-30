@@ -5,7 +5,6 @@ export async function connectToMongoDB() {
     const client = new MongoClient(process.env.MONGODB_URI);
     await client.connect();
     listDatabases(client);
-    // console.log('client = ',client);
     console.log('Connected to MongoDB');
     const db =client.db(process.env.DB_NAME);
     return db;
