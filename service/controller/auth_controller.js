@@ -1,4 +1,15 @@
-import { readUser,createUser,findUserByEmail,findUserByEmailAndPassword } from "../models/auth_models.js";
+import { 
+    readUser,
+    createUser,
+    findUserByEmail,
+    findUserByEmailAndPassword 
+} 
+from "../models/auth_models.js";
+
+import {
+    createBaseTransaction
+} from "../models/transaction_model.js";
+
 export async function getUserController(db,res) {
     try{
         const result = await readUser(db);
@@ -40,6 +51,7 @@ export async function createUserController(db,req,res) {
         if(!emailExists){
             createUser(db,data).then(result => {
                 console.log('Create User Success = ',result);
+                createBaseTransaction(db,data);
                 res.status(201).json({ message: 'User created successfully' });
                 return;
             }).catch(err => {

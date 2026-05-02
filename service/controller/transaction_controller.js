@@ -1,4 +1,9 @@
-import { readTransaction,createTransaction } from '../models/transaction_model.js';
+import { 
+    deleteTransaction,
+    readTransaction,
+    createTransaction 
+} 
+    from '../models/transaction_model.js';
 
 export async function getUserTransactionController(db,req,res) {
     try{
@@ -37,3 +42,18 @@ export async function createTransactionController(db,req,res) {
     }
 }
 
+export async function deleteTransactionController(db,req,res) {
+    try{
+        console.log('Delete User Transaction');
+        const data = req.body;
+        console.log('data = ',data);
+        const result = await deleteTransaction(db,data);
+        console.log('result = ',result);
+        res.status(200).json({ message: 'Transaction deleted successfully' });
+        return result;
+    }catch(err){
+        console.log(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+        throw err;
+    }
+}
