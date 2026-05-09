@@ -10,6 +10,7 @@ import {
     createBaseTransaction
 } from "../models/transaction_model.js";
 
+import { generateToken } from "../middleware/authen_middle.js";
 export async function getUserController(db,res) {
     try{
         const result = await readUser(db);
@@ -72,7 +73,8 @@ export async function loginUserController(db,req,res) {
             console.log('result = ',result);
             if(result){
                 console.log('Login Success');
-                return res.status(200).json({ message: 'Login successful' });
+                const token = generateToken(result);
+                return res.status(200).json({ message: 'Login successful', token: token });
             }else{
                 return res.status(401).json({ error: 'Invalid email or password' });
             }
